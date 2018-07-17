@@ -2,9 +2,9 @@
 <metadata>
   <plugins>
     <plugin>
-      <name>DataWave Assert Properties Plugin</name>
-      <prefix>assert-properties</prefix>
-      <artifactId>assert-properties</artifactId>
+      <name>DataWave Read Properties Plugin</name>
+      <prefix>read-properties</prefix>
+      <artifactId>read-properties</artifactId>
     </plugin>
   </plugins>
 </metadata>
