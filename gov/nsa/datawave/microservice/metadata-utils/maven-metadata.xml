@@ -3,10 +3,10 @@
   <groupId>gov.nsa.datawave.microservice</groupId>
   <artifactId>metadata-utils</artifactId>
   <versioning>
-    <release>1.8-zeigberg-716-1.0</release>
+    <release>1.8-zeiberg-825-1.0</release>
     <versions>
-      <version>1.8-zeigberg-716-1.0</version>
+      <version>1.8-zeiberg-825-1.0</version>
     </versions>
-    <lastUpdated>20210310164709</lastUpdated>
+    <lastUpdated>20210310165030</lastUpdated>
   </versioning>
 </metadata>
