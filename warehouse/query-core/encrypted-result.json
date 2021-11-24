@@ -1,0 +1,1315 @@
+{
+  "Events" : [ {
+    "Fields" : [ {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : ""
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "generic"
+      },
+      "columnVisibility" : "",
+      "name" : "EVENT_DATATYPE",
+      "timestamp" : 9223372036854775807
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Paris|North America"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CITY_CONTINENT",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "North America"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CONTINENT",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "United States"
+      },
+      "columnVisibility" : "NA",
+      "name" : "COUNTRY",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "1646688220097"
+      },
+      "columnVisibility" : "NA",
+      "name" : "LOAD_DATE",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "NA"
+      },
+      "columnVisibility" : "NA",
+      "name" : "ACCESS",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Paris"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CITY",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "44.24_-70.56"
+      },
+      "columnVisibility" : "NA",
+      "name" : "GEO",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "generic-cities.csv"
+      },
+      "columnVisibility" : "NA",
+      "name" : "RAW_FILE",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "20151010_0/generic/-ghjvh9.28uy5f.-g1eiee"
+      },
+      "columnVisibility" : "NA",
+      "name" : "RECORD_ID",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:decimal",
+        "value" : "120"
+      },
+      "columnVisibility" : "NA",
+      "name" : "NUM",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "---b7bc7772-5254-4f60-a945-fb7ca284e4e4|10|0"
+      },
+      "columnVisibility" : "NA",
+      "name" : "ORIG_FILE",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "20151010"
+      },
+      "columnVisibility" : "NA",
+      "name" : "START_DATE",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Maine"
+      },
+      "columnVisibility" : "NA",
+      "name" : "STATE",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "USA"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CODE",
+      "timestamp" : 1444435200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "par-usa-ma-10"
+      },
+      "columnVisibility" : "NA",
+      "name" : "EVENT_ID",
+      "timestamp" : 1444435200000
+    } ],
+    "Markings" : {
+      "entry" : [ {
+        "key" : "columnVisibility",
+        "value" : "NA"
+      } ]
+    },
+    "Metadata" : {
+      "DataType" : "generic",
+      "InternalId" : "-ghjvh9.28uy5f.-g1eiee",
+      "Row" : "20151010_0",
+      "Table" : "shard"
+    }
+  }, {
+    "Fields" : [ {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "NA"
+      },
+      "columnVisibility" : "NA",
+      "name" : "ACCESS",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : ""
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "generic"
+      },
+      "columnVisibility" : "",
+      "name" : "EVENT_DATATYPE",
+      "timestamp" : 9223372036854775807
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "United States"
+      },
+      "columnVisibility" : "NA",
+      "name" : "COUNTRY",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "par-usa-oh-9"
+      },
+      "columnVisibility" : "NA",
+      "name" : "EVENT_ID",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "20150909"
+      },
+      "columnVisibility" : "NA",
+      "name" : "START_DATE",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "USA"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CODE",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "---b7bc7772-5254-4f60-a945-fb7ca284e4e4|9|0"
+      },
+      "columnVisibility" : "NA",
+      "name" : "ORIG_FILE",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "1646688220097"
+      },
+      "columnVisibility" : "NA",
+      "name" : "LOAD_DATE",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "North America"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CONTINENT",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "20150909_0/generic/x7abb7.-t3fezj.-aunw19"
+      },
+      "columnVisibility" : "NA",
+      "name" : "RECORD_ID",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:decimal",
+        "value" : "100"
+      },
+      "columnVisibility" : "NA",
+      "name" : "NUM",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "40.80_-81.18"
+      },
+      "columnVisibility" : "NA",
+      "name" : "GEO",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Paris|North America"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CITY_CONTINENT",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Paris"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CITY",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "generic-cities.csv"
+      },
+      "columnVisibility" : "NA",
+      "name" : "RAW_FILE",
+      "timestamp" : 1441756800000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Ohio"
+      },
+      "columnVisibility" : "NA",
+      "name" : "STATE",
+      "timestamp" : 1441756800000
+    } ],
+    "Markings" : {
+      "entry" : [ {
+        "key" : "columnVisibility",
+        "value" : "NA"
+      } ]
+    },
+    "Metadata" : {
+      "DataType" : "generic",
+      "InternalId" : "x7abb7.-t3fezj.-aunw19",
+      "Row" : "20150909_0",
+      "Table" : "shard"
+    }
+  }, {
+    "Fields" : [ {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : ""
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "generic"
+      },
+      "columnVisibility" : "",
+      "name" : "EVENT_DATATYPE",
+      "timestamp" : 9223372036854775807
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "NA"
+      },
+      "columnVisibility" : "NA",
+      "name" : "ACCESS",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "United States"
+      },
+      "columnVisibility" : "NA",
+      "name" : "COUNTRY",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "USA"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CODE",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "---b7bc7772-5254-4f60-a945-fb7ca284e4e4|6|0"
+      },
+      "columnVisibility" : "NA",
+      "name" : "ORIG_FILE",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "20150808"
+      },
+      "columnVisibility" : "NA",
+      "name" : "START_DATE",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "20150808_0/generic/y904ph.-su5zgl.csu5k6"
+      },
+      "columnVisibility" : "NA",
+      "name" : "RECORD_ID",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "par-usa-mo-8"
+      },
+      "columnVisibility" : "NA",
+      "name" : "EVENT_ID",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "North America"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CONTINENT",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:decimal",
+        "value" : "110"
+      },
+      "columnVisibility" : "NA",
+      "name" : "NUM",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Missouri"
+      },
+      "columnVisibility" : "NA",
+      "name" : "STATE",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "1646688220097"
+      },
+      "columnVisibility" : "NA",
+      "name" : "LOAD_DATE",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "39.48_-92.02"
+      },
+      "columnVisibility" : "NA",
+      "name" : "GEO",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Paris|North America"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CITY_CONTINENT",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Paris"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CITY",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "generic-cities.csv"
+      },
+      "columnVisibility" : "NA",
+      "name" : "RAW_FILE",
+      "timestamp" : 1438992000000
+    } ],
+    "Markings" : {
+      "entry" : [ {
+        "key" : "columnVisibility",
+        "value" : "NA"
+      } ]
+    },
+    "Metadata" : {
+      "DataType" : "generic",
+      "InternalId" : "y904ph.-su5zgl.csu5k6",
+      "Row" : "20150808_0",
+      "Table" : "shard"
+    }
+  }, {
+    "EncryptedKeys" : [ {
+      "DN" : "CN=prototype.test.server.internal,OU=Prototype Test Server,O=Prototype,L=Columbia,ST=Maryland,C=US",
+      "SerialNumber" : "a02a5db37291b252967dd77f5fa1269b453dc3d",
+      "WrappedKey" : "gxO1wn3mCHkobeTHu7L+VxFMQkpkPCmnBjHDlavqkBQ21mAvZPliqvlQOhORYwcy3wR4EdS0I/egqvde0x9p2VRLUJ7DhycP89tU4WmUnARVBUWV45t8KTysZLIB5Z+GA6iWvHGd6LXIp0WHn1wzt2RvZxIdI6c9X6lI7E+vKgSI7Gghq7TmP3a4zbBX59Z2vmozXHNewyQ5ZidkXeBnp7O1eKRfrqyjl41vIHFNvjofq8vXehCw+k/l2S0c6nk5mvOITMmVYoDIkiy5SyBeArlAOMllDaejbYaXGqBWCOHmTcPzkuPvbhiJs7x24r6Zzzbvf2P1Y7akEE4NQ+kcVA"
+    } ],
+    "EncryptedPayloads" : [ {
+      "Name" : "ENCRYPTED_PAYLOAD",
+      "Value" : "1tPJLGM30hXT/btfZyp3m6FG+w9KNIzfhvVNP4yLwN5lkoooMDaoujSI+hmSUZrrvDlRrRi3YsLzorWk3rueV+n/JRLC2L2Xt/JtaEy6mTUDt9nMRiV0UtlkY0RBKgVQTCOYYbTbdhhrp5XDkReyv6KJQ3NKS4GmRHmh9hEi9YhRl2U1xVaoOa0Zxoz0u4SVCbqJ+sGmBeOFmlVyAtMjEyyaUiF/5J20Bd531N6HrsvgRsBY5bJgU/6mMbV10Q5Fl+V/7tbgkyz/shmlC3Oo6QwrgerK+/WtjNCbjr4sijvM+7wAgnwntjvsf4tFnD9HGRtZoKsBKdQL+KvM55PxI18rYzaZahJfz5UvnljMiPlv5beKGhmhWLfeaduIlq+RUU063cyGZgSqv1rCS/ZF7AOnQiNF5sR3PSWj6XnCX71MmelqSoHuDNVIraqf8OLQ71nb+W1otEEjFx7f/F82KSHH4X9ceZLa/cFuzIuZdZcEXLJHHekkEM973FJ+lR2w225ZaTTlUSAcRtO58RV0oJsL99RjjegB/eQkT9yxWlMErimRdpNype+xnz13sU6e4wMAzFJ6H3Onkv8FqPEmDewRTy0gEzXE0pwcCiWSgMYaL5tqNNTEOqc8I1qqz3GTAr3FQiG90SYJUh4PvrCNlXQolLnM1H3oas8ucNeYVWtJTspp4xeRadhQkPir9FV2ZDFsg52dPF+XwbgCDHc3wD00te7XzHeYekEzlm/lZME4mVqnpWxluGnCBVoSvoGBuKRYemCCh1AIqcU8OyUEz/JFvQSwAiwnKKNCUyBfBjCky82/mFWYDa54L85mJRFBLLo4qmRAh57ElAPzeM1z7pMMVZuAD+3yW78YEgrLEk1azwAH2KcJEXol0yH62dswYOiE8K6Mj0e7YqVa2jR+FM6+P66uJS2UqvQpWLrybAQbDPTLVo9F7hXsSeMFTiA9LowrK0L8S9dOoUt3TVwq4X25SAkKsSo2iUGTv86nH7h7+cWh89lLPBVixr5tFmInfZOL2dtOzmpbjWqNtH9ExzeHeb97YSvthNvezf9Vwae6VtcemAcQsc0ryVG9v3jtNDoNW3FBsJArfGHqiR/I1+R5jfByxA1OFmUoHOt0loxQrl2xxrSe4hmFR1cKviD2CfFFfwfpdUZQLYtwaUUj3eu8+SggCTKEkUXIS3q6IWtEwJOoRpEDges59MEhWbMlmrD2yjYwLrIdGjTR8ZT0+7mb77hoWk6nofMDshbw/LvpsDnc6Lm29Z4oYepqnJtxpBcSQzG4hXqVrbsdOgJiFVplGGy2pnZFkpRUQXyO9qs96NTaYAblGlyQhFa65mFlcv4CIb4AZm2NSZFrFC8Y6qYF5nFcgwl29UpQ1OK/MGruLIAJWMUQBr2n6pvZfEDbbhbkySaslH30P+Ceg48VgGjFHO1c1+WfgErM+wn1V1gCPY33kBYOI+o56Z09j3KxyUH4bjKp9y/0EF8uwOg7ftTyoDsAFrhPlubblrVsJAOMLq/hVpTBi2RJdNax/WLZqsLt95JrgpZOTCFXArIkBVoQ3wC0XvwwwUHOYBZTDoQ8sq+9xsm7W64Hvz3EvZm/N+yWxCfkjenf3jT3cYddr+2TYTTyq3kZD5dPFcX6aWTIZpPIdRsiyTCmfX14PuBv+1rXPvcmr+ERGOHEfJzQ2v4J3w7Cel+CfDeYyc+2DRWhTqBO174VtThhDw4s77VEyX1d0QiRIj8GJ368BogRGfE8bC2uXPr5uUbE9vBZO5zqSQ4CbTJhu1YTUiEAQiaCBA=="
+    } ],
+    "Fields" : [ {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : ""
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "generic"
+      },
+      "columnVisibility" : "",
+      "name" : "EVENT_DATATYPE",
+      "timestamp" : 9223372036854775807
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "---b7bc7772-5254-4f60-a945-fb7ca284e4e4|13|0"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "ORIG_FILE",
+      "timestamp" : 1447200000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Italy"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "COUNTRY",
+      "timestamp" : 1447200000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "20151111_0/generic/54my5m.cc88z8.-o64hos"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "RECORD_ID",
+      "timestamp" : 1447200000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Lazio"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "STATE",
+      "timestamp" : 1447200000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "20151111"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "START_DATE",
+      "timestamp" : 1447200000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Paris"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "CITY",
+      "timestamp" : 1447200000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "generic-cities.csv"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "RAW_FILE",
+      "timestamp" : 1447200000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "par-ita-11"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "EVENT_ID",
+      "timestamp" : 1447200000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Euro"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "ACCESS",
+      "timestamp" : 1447200000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Europe"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "CONTINENT",
+      "timestamp" : 1447200000000
+    } ],
+    "Markings" : {
+      "entry" : [ {
+        "key" : "columnVisibility",
+        "value" : "Euro"
+      } ]
+    },
+    "Metadata" : {
+      "DataType" : "generic",
+      "InternalId" : "54my5m.cc88z8.-o64hos",
+      "Row" : "20151111_0",
+      "Table" : "shard"
+    }
+  }, {
+    "EncryptedKeys" : [ {
+      "DN" : "CN=prototype.test.server.internal,OU=Prototype Test Server,O=Prototype,L=Columbia,ST=Maryland,C=US",
+      "SerialNumber" : "a02a5db37291b252967dd77f5fa1269b453dc3d",
+      "WrappedKey" : "gxO1wn3mCHkobeTHu7L+VxFMQkpkPCmnBjHDlavqkBQ21mAvZPliqvlQOhORYwcy3wR4EdS0I/egqvde0x9p2VRLUJ7DhycP89tU4WmUnARVBUWV45t8KTysZLIB5Z+GA6iWvHGd6LXIp0WHn1wzt2RvZxIdI6c9X6lI7E+vKgSI7Gghq7TmP3a4zbBX59Z2vmozXHNewyQ5ZidkXeBnp7O1eKRfrqyjl41vIHFNvjofq8vXehCw+k/l2S0c6nk5mvOITMmVYoDIkiy5SyBeArlAOMllDaejbYaXGqBWCOHmTcPzkuPvbhiJs7x24r6Zzzbvf2P1Y7akEE4NQ+kcVA"
+    } ],
+    "EncryptedPayloads" : [ {
+      "Name" : "ENCRYPTED_PAYLOAD",
+      "Value" : "EliELny/uvpDYS99uGt53CxfNY7z7RIXZnbqgfRtzn1yPtq06x0ONsEr1nc83CozV7n+CweIsNdlJEl1WX2ppJ9/dXHw8utWv3CSMaUVGTj9tGKi4jv+LYvFwKNUwT7So/6A6OG+Q3Iu3wl9L17egOhRLJ7C7Okl9h59+ITLdFBwnUH6D2JApjYrRRwl9xVQ13bib3NbJ1cQ76mvC1y2lE1kJNQhPDLFhu1fe+hcl0S2UZz+Iy2DW4894ckmpVOmHJPysmk9l5OCValyhcdH1A/o1PM9yj5rxP0VGGEq7EibuilUlBeLqEV2ohqXWkXl8xaeo/tlhFCCxRTI1sqx1/9plk0/Xi9T/z0eELjOq6nOvaPPzkbSDsSgxzXND0RAdHLyqQyn96TxFB5zi74vZjE+3b+P33P24hcLy45FmJAeKwew1uVmndOXglE4Oq1iWWOjRpaIwz8KLhFDpiaNMTVSpJX5c3iRD9ZZ73IIdrCOexnRvxIou9GU8fL6bV/y8RpMNX1CRlLvaFTg2n4Zq7XNyyjOWR4a1Wp9PbKXcVgy4hz1P+UGjw+WKbbhIdNRzXrgAVuxm9x0Um6ypubDKvvabC1tszZXv4DX352oq9TpuWBrghUI2sd9ucfO+p0gNXjJNScyNo314zeMVQNGc2lDF2R1Lf7yd7uv2RgMaNP9j7EhVw8qXr0Izpsz3hH9eyD4+Gak+V4DVlv3QTrn1Gb0bABfOvcITIJDaucqiAtuMjKOq3iCN8YcsnzbavZQDXIexQe9HO/pfmzoTDjuxO36ppXpNjoDnXLiBaYotk0ZP/0bpi2O1ndMx8y8wPZCMqNkuRO0Ao/nQJWQZavDEQ66b7lxVJEFBgVUFnu7IDXV+lkqDHMPaZ0KjAveguUD7Hd7xl6+qlsC0SIMt0xOJ2sae2/HCdi34Xeylzd/UlmYzTRnaiP99lf6ogzYVsL4jU2mMhkxzjQqOvxJi8YMZQIrcF5uGk9LiiyfNTN4ownHzI4nmAGdYbekWpRGXoCginNEAiQwRhFxBA+gIWJAO1K20opPFlCD+E2MvD7j27YJ59mnVe8CXjJ3uvyOgFKBUj4UCqYZsuM+pesz6p2F6v+cWeTPub82fQ+PEzA8t8EbiQivZxiDuTUcjgYna5Qhe7olTHaSCvHUoPoV3Imp4No06tNTB0otVsJVTF0fbIkwYUC3Q0K31F8/w+WTM9lgNuOmT5ZWFN/EYdX/LsSboecPNLEB9mc2D/lATEyW8w2EvelxIE3FA2Q9Ztc+Hq5c7Hmd7CeV2koW+3H7zSPAA91gPAcAPdWXZwna1BjQal9Sy8cRxBJNLyYmXXJyj49Rs8NEbHkQAZ4UdI68SjpAjcXWNWGVHWNHDGsPPxtFih6VjrKsB40OK8CB602yVrqsWv2HDqS6JSGtsVYKP0YFKd+n1ux78XRWiepLY3Is2rI2YiDWoNb0QFvTKE3qFaB6eUgabS6DgcfUatuUuyF4oPE0Y0ggJJ2ldZU0EiVWrlld0YA/4b6sSYzrFJrHlNG53nkOpmpBOFFWMKeq4QyTzrdiTiwJdsyLcxYaqDDRaOriKFksUjhQLh+GtTCzHtNFkYCmn6v17+c6pvn2CWDzPzcfPaxXeWUeb12yCSJTtHSwln+PGx6rjT0x64l5dU36Z3WG6Khkv5Y0z0I/uO5RoukatIQ59NLkmJjYfcQkaHRP50i1jiVWtn68TaZsrl7dVmnROXlFjG43e2jKdbSU3Bc73XyxHcZxOXrrQsdK9eqrsgrv7g4A9bnBGdfMBLfT"
+    } ],
+    "Fields" : [ {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : ""
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "generic"
+      },
+      "columnVisibility" : "",
+      "name" : "EVENT_DATATYPE",
+      "timestamp" : 9223372036854775807
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Europe"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "CONTINENT",
+      "timestamp" : 1436227200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "---b7bc7772-5254-4f60-a945-fb7ca284e4e4|1|0"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "ORIG_FILE",
+      "timestamp" : 1436227200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "France"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "COUNTRY",
+      "timestamp" : 1436227200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Euro"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "ACCESS",
+      "timestamp" : 1436227200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "lle-de-France"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "STATE",
+      "timestamp" : 1436227200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "par-fra-lle-7"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "EVENT_ID",
+      "timestamp" : 1436227200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Paris"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "CITY",
+      "timestamp" : 1436227200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "generic-cities.csv"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "RAW_FILE",
+      "timestamp" : 1436227200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "20150707"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "START_DATE",
+      "timestamp" : 1436227200000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "Euro"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "20150707_0/generic/jix2b5.-xepry3.89ojfl"
+      },
+      "columnVisibility" : "Euro",
+      "name" : "RECORD_ID",
+      "timestamp" : 1436227200000
+    } ],
+    "Markings" : {
+      "entry" : [ {
+        "key" : "columnVisibility",
+        "value" : "Euro"
+      } ]
+    },
+    "Metadata" : {
+      "DataType" : "generic",
+      "InternalId" : "jix2b5.-xepry3.89ojfl",
+      "Row" : "20150707_0",
+      "Table" : "shard"
+    }
+  }, {
+    "Fields" : [ {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : ""
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "generic"
+      },
+      "columnVisibility" : "",
+      "name" : "EVENT_DATATYPE",
+      "timestamp" : 9223372036854775807
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "NA"
+      },
+      "columnVisibility" : "NA",
+      "name" : "ACCESS",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "United States"
+      },
+      "columnVisibility" : "NA",
+      "name" : "COUNTRY",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "par-usa-oh-8"
+      },
+      "columnVisibility" : "NA",
+      "name" : "EVENT_ID",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "USA"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CODE",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "---b7bc7772-5254-4f60-a945-fb7ca284e4e4|3|0"
+      },
+      "columnVisibility" : "NA",
+      "name" : "ORIG_FILE",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "20150808_0/generic/vf6x4l.uc5m9n.ix9x3h"
+      },
+      "columnVisibility" : "NA",
+      "name" : "RECORD_ID",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "20150808"
+      },
+      "columnVisibility" : "NA",
+      "name" : "START_DATE",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "North America"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CONTINENT",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "1646688220097"
+      },
+      "columnVisibility" : "NA",
+      "name" : "LOAD_DATE",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:decimal",
+        "value" : "100"
+      },
+      "columnVisibility" : "NA",
+      "name" : "NUM",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "40.80_-81.18"
+      },
+      "columnVisibility" : "NA",
+      "name" : "GEO",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Paris|North America"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CITY_CONTINENT",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Paris"
+      },
+      "columnVisibility" : "NA",
+      "name" : "CITY",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "generic-cities.csv"
+      },
+      "columnVisibility" : "NA",
+      "name" : "RAW_FILE",
+      "timestamp" : 1438992000000
+    }, {
+      "Markings" : {
+        "entry" : [ {
+          "key" : "columnVisibility",
+          "value" : "NA"
+        } ]
+      },
+      "Value" : {
+        "type" : "xs:string",
+        "value" : "Ohio"
+      },
+      "columnVisibility" : "NA",
+      "name" : "STATE",
+      "timestamp" : 1438992000000
+    } ],
+    "Markings" : {
+      "entry" : [ {
+        "key" : "columnVisibility",
+        "value" : "NA"
+      } ]
+    },
+    "Metadata" : {
+      "DataType" : "generic",
+      "InternalId" : "vf6x4l.uc5m9n.ix9x3h",
+      "Row" : "20150808_0",
+      "Table" : "shard"
+    }
+  } ],
+  "Fields" : [ "ACCESS", "CITY", "CITY_CONTINENT", "CODE", "CONTINENT", "COUNTRY", "EVENT_DATATYPE", "EVENT_ID", "GEO", "LOAD_DATE", "NUM", "ORIG_FILE", "RAW_FILE", "RECORD_ID", "START_DATE", "STATE" ],
+  "HasResults" : false,
+  "OperationTimeMS" : 0,
+  "PageNumber" : 0,
+  "PartialResults" : false,
+  "ReturnedEvents" : 6
+}

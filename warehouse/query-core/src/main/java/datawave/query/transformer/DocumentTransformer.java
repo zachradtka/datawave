@@ -1,6 +1,20 @@
 package datawave.query.transformer;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.AnnotationIntrospector;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
 import com.google.common.base.Preconditions;
+import datawave.encryption.DatawaveEncryptionException;
+import datawave.encryption.Encrypter;
+import datawave.encryption.WrappedKey;
 import datawave.marking.MarkingFunctions;
 import datawave.query.attributes.Document;
 import datawave.util.StringUtils;
@@ -10,6 +24,8 @@ import datawave.webservice.query.logic.BaseQueryLogic;
 import datawave.webservice.query.logic.Flushable;
 import datawave.webservice.query.logic.WritesQueryMetrics;
 import datawave.webservice.query.logic.WritesResultCardinalities;
+import datawave.webservice.query.result.event.EncryptedKey;
+import datawave.webservice.query.result.event.EncryptedPayload;
 import datawave.webservice.query.result.event.EventBase;
 import datawave.webservice.query.result.event.FieldBase;
 import datawave.webservice.query.result.event.Metadata;
@@ -17,10 +33,16 @@ import datawave.webservice.query.result.event.ResponseObjectFactory;
 import org.apache.accumulo.core.data.Key;
 import org.apache.accumulo.core.data.Value;
 import org.apache.accumulo.core.security.ColumnVisibility;
+import org.apache.accumulo.core.security.VisibilityParseException;
 import org.apache.log4j.Logger;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -31,17 +53,18 @@ import java.util.Map.Entry;
  * Document. Once we move toward a nested event, we can have a simpler approach.
  *
  */
+@SuppressWarnings("rawtypes")
 public class DocumentTransformer extends DocumentTransformerSupport<Entry<Key,Value>,EventBase> implements WritesQueryMetrics, WritesResultCardinalities,
                 Flushable<EventBase> {
     
-    private static final Logger log = Logger.getLogger(DocumentTransformerSupport.class);
+    private static final Logger log = Logger.getLogger(DocumentTransformer.class);
     
     /**
      * By default, assume each cell still has the visibility attached to it
      *
-     * @param logic
-     * @param settings
-     * @param responseObjectFactory
+     * @param logic the query logic that is calling this transformer.
+     * @param settings the settings for the current query
+     * @param responseObjectFactory the factory to use for creating response objects.
      */
     public DocumentTransformer(BaseQueryLogic<Entry<Key,Value>> logic, Query settings, MarkingFunctions markingFunctions,
                     ResponseObjectFactory responseObjectFactory) {
@@ -57,7 +80,8 @@ public class DocumentTransformer extends DocumentTransformerSupport<Entry<Key,Va
                     Boolean reducedResponse) {
         super(tableName, settings, markingFunctions, responseObjectFactory, reducedResponse);
     }
-    
+
+    @SuppressWarnings("rawtypes")
     @Override
     public EventBase flush() throws EmptyObjectException {
         Entry<Key,Document> documentEntry = null;
@@ -84,7 +108,8 @@ public class DocumentTransformer extends DocumentTransformerSupport<Entry<Key,Va
             return null;
         }
     }
-    
+
+    @SuppressWarnings("rawtypes")
     @Override
     public EventBase transform(Entry<Key,Value> entry) throws EmptyObjectException {
         
@@ -99,7 +124,8 @@ public class DocumentTransformer extends DocumentTransformerSupport<Entry<Key,Va
         
         return _transform(documentEntry);
     }
-    
+
+    @SuppressWarnings("rawtypes")
     private EventBase _transform(Entry<Key,Document> documentEntry) throws EmptyObjectException {
         if (documentEntry == null) {
             // buildResponse will return a null object if there was only metadata in the document
@@ -128,8 +154,8 @@ public class DocumentTransformer extends DocumentTransformerSupport<Entry<Key,Va
         // We don't have to consult the Document to rebuild the Visibility, the key
         // should have the correct top-level visibility
         ColumnVisibility eventCV = new ColumnVisibility(documentKey.getColumnVisibility());
-        
-        EventBase output = null;
+
+        EventBase output;
         try {
             // build response method here
             output = buildResponse(document, documentKey, eventCV, colf, row, this.markingFunctions);
@@ -149,9 +175,10 @@ public class DocumentTransformer extends DocumentTransformerSupport<Entry<Key,Va
         
         return output;
     }
-    
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
     protected EventBase buildResponse(Document document, Key documentKey, ColumnVisibility eventCV, String colf, String row, MarkingFunctions mf)
-                    throws MarkingFunctions.Exception {
+                    throws MarkingFunctions.Exception, DatawaveEncryptionException {
         
         Map<String,String> markings = mf.translateFromColumnVisibility(eventCV);
         
@@ -182,7 +209,9 @@ public class DocumentTransformer extends DocumentTransformerSupport<Entry<Key,Va
             if (eventQueryDataDecoratorTransformer != null) {
                 event = (EventBase) eventQueryDataDecoratorTransformer.transform(event);
             }
-            
+
+            event = maybeEncryptEvent(event, eventCV);
+
             // assign an estimate of the event size based on the document size
             // in practice this is about 2.5 times the size of the document estimated size
             // we need to set something here for page size trigger purposes.
@@ -191,5 +220,114 @@ public class DocumentTransformer extends DocumentTransformerSupport<Entry<Key,Va
         
         return event;
     }
-    
+
+    protected EventBase<?,?> maybeEncryptEvent(EventBase<?,?> clearEvent, ColumnVisibility eventCv) throws DatawaveEncryptionException {
+        try {
+            if (isEncryptionEnabled() && isSensitive(eventCv)) {
+                return encryptEvent(this.encrypter, clearEvent);
+            } else {
+                return clearEvent;
+            }
+        }
+        catch (VisibilityParseException e) {
+            throw new DatawaveEncryptionException("Could not parse visibility", e);
+        }
+    }
+
+    @SuppressWarnings("rawtypes, unchecked")
+    public EventBase<?,?> encryptEvent(Encrypter encrypter, EventBase<?,?> clearEvent) throws DatawaveEncryptionException {
+        EventBase encryptedEvent = this.responseObjectFactory.getEvent();
+        final List<FieldBase<?>> cleartextFields = new ArrayList<>();
+        final List<FieldBase<?>> fieldsToEncrypt = new ArrayList<>();
+
+        // add each field to a collection based on whether it should be encrypted or remain clear.
+        for (Object o: clearEvent.getFields()) {
+            final FieldBase<?> fb = (FieldBase<?>) o;
+            final ColumnVisibility cv = new ColumnVisibility(fb.getColumnVisibility());
+            final List<FieldBase<?>> targetCollection = shouldEncryptField(fb.getName()) ?  fieldsToEncrypt : cleartextFields;
+            targetCollection.add(fb);
+        }
+
+        encryptedEvent.setMarkings(clearEvent.getMarkings());
+        encryptedEvent.setMetadata(clearEvent.getMetadata());
+
+        encryptedEvent.setEncryptedKeys(buildEncryptedKeys(encrypter));
+        encryptedEvent.setEncryptedPayloads(buildEncryptedPayload(encrypter, fieldsToEncrypt));
+        encryptedEvent.setFields(cleartextFields);
+        return encryptedEvent;
+    }
+
+
+
+    protected List<EncryptedKey> buildEncryptedKeys(Encrypter encrypter) throws DatawaveEncryptionException {
+        List<EncryptedKey> eks = new ArrayList<>();
+        for (Map.Entry<String, String> ee: encrypter.getEncodedWrappedKeys().entrySet()) {
+            try {
+                WrappedKey wk = WrappedKey.deserialize(ee.getKey());
+                EncryptedKey encryptedKey = new EncryptedKey();
+                WrappedKey.Entry wke = wk.get(0);
+                encryptedKey.setCipherText(ee.getValue());
+                encryptedKey.setDn(wke.getSubjectDn());
+                encryptedKey.setSerialNumber(wke.getSerialHex());
+                eks.add(encryptedKey);
+            }
+            catch (Exception e) {
+                throw new DatawaveEncryptionException("Exception adding wrapped keys to document", e);
+            }
+        }
+        return eks;
+    }
+
+    protected List<EncryptedPayload> buildEncryptedPayload(Encrypter encrypter, List<FieldBase<?>> fieldsToEncrypt) throws DatawaveEncryptionException {
+        EncryptedPayload ep = new EncryptedPayload();
+        String wrappedResult = marshallToString(List.class, fieldsToEncrypt);
+        String cipherText = encrypter.getEncodedEncryptedString(wrappedResult);
+
+        // perform encryption here.
+        ep.setCipherText(cipherText);
+        ep.setName("ENCRYPTED_PAYLOAD");
+        return Collections.singletonList(ep);
+    }
+
+    public static <T> String marshallToString(Class<T> clazz, T instance) throws DatawaveEncryptionException {
+        return marshallToJSON(clazz, instance);
+    }
+
+    public static <T> String marshallToJSON(Class<T> clazz, T instance) throws DatawaveEncryptionException {
+        try {
+            TypeFactory typeFactory = TypeFactory.defaultInstance();
+            JsonFactory jsonFactory = JsonFactory.builder().build();
+
+            final AnnotationIntrospector introspector = AnnotationIntrospector.pair(
+                    new JacksonAnnotationIntrospector(),
+                    new JaxbAnnotationIntrospector(typeFactory));
+
+            ObjectMapper mapper = JsonMapper.builder(jsonFactory)
+                    .enable(MapperFeature.USE_WRAPPER_NAME_AS_PROPERTY_NAME)
+                    .enable(SerializationFeature.INDENT_OUTPUT)
+                    .serializationInclusion(JsonInclude.Include.NON_NULL)
+                    .annotationIntrospector(introspector)
+                    .build();
+
+            final SerializationConfig config = mapper.getSerializationConfig();
+            return mapper.writerFor(clazz).with(config.getDefaultPrettyPrinter()).writeValueAsString(instance);
+        }
+        catch (Exception e) {
+            throw new DatawaveEncryptionException("Could not serialize payload as JSON", e);
+        }
+    }
+
+    public static <T> String marshallToXML(Class<T> clazz, T instance) throws DatawaveEncryptionException {
+        try {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            JAXBContext ctx = JAXBContext.newInstance(clazz);
+            Marshaller m = ctx.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            m.marshal(instance, bos);
+            return bos.toString();
+        }
+        catch (Exception e) {
+            throw new DatawaveEncryptionException("Could not serialize payload as XML", e);
+        }
+    }
 }

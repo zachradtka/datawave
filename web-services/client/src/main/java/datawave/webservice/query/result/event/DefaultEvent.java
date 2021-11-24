@@ -39,7 +39,15 @@ public class DefaultEvent extends EventBase<DefaultEvent,DefaultField> implement
     @XmlElementWrapper(name = "Fields")
     @XmlElement(name = "Field")
     private List<DefaultField> fields = null;
-    
+
+    @XmlElementWrapper(name = "EncryptedKeys")
+    @XmlElement(name = "EncryptedKey")
+    private List<EncryptedKey> encryptedKeys = null;
+
+    @XmlElementWrapper(name = "EncryptedPayloads")
+    @XmlElement(name = "EncryptedPayload")
+    private List<EncryptedPayload> encryptedPayloads = null;
+
     public List<DefaultField> getFields() {
         return fields;
     }
@@ -69,7 +77,23 @@ public class DefaultEvent extends EventBase<DefaultEvent,DefaultField> implement
     public void setMetadata(Metadata metadata) {
         this.metadata = metadata;
     }
-    
+
+    public List<EncryptedKey> getEncryptedKeys() {
+        return encryptedKeys;
+    }
+
+    public void setEncryptedKeys(List<EncryptedKey> encryptedKeys) {
+        this.encryptedKeys = encryptedKeys;
+    }
+
+    public List<EncryptedPayload> getEncryptedPayloads() {
+        return encryptedPayloads;
+    }
+
+    public void setEncryptedPayloads(List<EncryptedPayload> encryptedPayloads) {
+        this.encryptedPayloads = encryptedPayloads;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o instanceof DefaultEvent) {
@@ -80,6 +104,8 @@ public class DefaultEvent extends EventBase<DefaultEvent,DefaultField> implement
             eb.append(this.markings, v.markings);
             eb.append(this.metadata, v.metadata);
             eb.append(this.fields, v.fields);
+            eb.append(this.encryptedKeys, v.encryptedKeys);
+            eb.append(this.encryptedPayloads, v.encryptedPayloads);
             return eb.isEquals();
         }
         
@@ -91,6 +117,8 @@ public class DefaultEvent extends EventBase<DefaultEvent,DefaultField> implement
         int result = markings != null ? markings.hashCode() : 0;
         result = 31 * result + (metadata != null ? metadata.hashCode() : 0);
         result = 31 * result + (fields != null ? fields.hashCode() : 0);
+        result = 31 * result + (encryptedKeys != null ? encryptedKeys.hashCode() : 0);
+        result = 31 * result + (encryptedPayloads != null ? encryptedPayloads.hashCode() : 0);
         return result;
     }
     
@@ -140,6 +168,30 @@ public class DefaultEvent extends EventBase<DefaultEvent,DefaultField> implement
                     }
                 }
             }
+
+            if (message.encryptedKeys != null) {
+                Schema<EncryptedKey> schema = null;
+                for (EncryptedKey encryptedKey: message.encryptedKeys) {
+                    if (encryptedKey != null) {
+                        if (schema == null) {
+                            schema = encryptedKey.cachedSchema();
+                        }
+                        output.writeObject(4, encryptedKey, schema, true);
+                    }
+                }
+            }
+
+            if (message.encryptedPayloads != null) {
+                Schema<EncryptedPayload> schema = null;
+                for (EncryptedPayload encryptedPayload: message.encryptedPayloads) {
+                    if (encryptedPayload != null) {
+                        if (schema == null) {
+                            schema = encryptedPayload.cachedSchema();
+                        }
+                        output.writeObject(5, encryptedPayload, schema, true);
+                    }
+                }
+            }
         }
         
         public void mergeFrom(Input input, DefaultEvent message) throws IOException {
@@ -179,6 +231,10 @@ public class DefaultEvent extends EventBase<DefaultEvent,DefaultField> implement
                     return "metadata";
                 case 3:
                     return "fields";
+                case 4:
+                    return "encryptedKeys";
+                case 5:
+                    return "encryptedPayloads";
                 default:
                     return null;
             }
@@ -194,6 +250,8 @@ public class DefaultEvent extends EventBase<DefaultEvent,DefaultField> implement
             fieldMap.put("markings", 1);
             fieldMap.put("metadata", 2);
             fieldMap.put("fields", 3);
+            fieldMap.put("encryptedKeys", 4);
+            fieldMap.put("encryptedPayloads", 5);
         }
     };
     

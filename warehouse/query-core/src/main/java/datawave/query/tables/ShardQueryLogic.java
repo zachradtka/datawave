@@ -8,6 +8,8 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
+import datawave.encryption.DatawaveEncryptionException;
+import datawave.encryption.Encrypter;
 import datawave.query.iterator.ivarator.IvaratorCacheDirConfig;
 import datawave.data.type.Type;
 import datawave.marking.MarkingFunctions;
@@ -47,6 +49,9 @@ import datawave.query.util.DateIndexHelperFactory;
 import datawave.query.util.MetadataHelper;
 import datawave.query.util.MetadataHelperFactory;
 import datawave.query.util.QueryStopwatch;
+import datawave.security.authorization.DatawavePrincipal;
+import datawave.security.authorization.RecipientResolverStrategy;
+import datawave.security.authorization.SubjectIssuerDNPair;
 import datawave.util.StringUtils;
 import datawave.util.time.TraceStopwatch;
 import datawave.webservice.common.connection.AccumuloConnectionFactory;
@@ -73,6 +78,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.security.Principal;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -184,7 +191,9 @@ public class ShardQueryLogic extends BaseQueryLogic<Entry<Key,Value>> {
     private QueryParser parser = null;
     
     private CardinalityConfiguration cardinalityConfiguration = null;
-    
+
+    private RecipientResolverStrategy recipientResolverStrategy = null;
+
     /**
      * Basic constructor
      */
@@ -594,17 +603,54 @@ public class ShardQueryLogic extends BaseQueryLogic<Entry<Key,Value>> {
         if (getConfig() != null) {
             transformer.setProjectFields(getConfig().getProjectFields());
             transformer.setBlacklistedFields(getConfig().getBlacklistedFields());
+
+
             if (getConfig().getUniqueFields() != null && !getConfig().getUniqueFields().isEmpty()) {
                 transformer.addTransform(new UniqueTransform(this, getConfig().getUniqueFields()));
             }
             if (getConfig().getGroupFields() != null && !getConfig().getGroupFields().isEmpty()) {
                 transformer.addTransform(new GroupingTransform(this, getConfig().getGroupFields()));
             }
+
+            Principal principal = getPrincipal();
+
+            try {
+                List<X509Certificate> recipientList = buildRecipientList(principal, defaultRecipients);
+                Encrypter encrypter = new Encrypter(recipientList);
+                transformer.setCleartextFields(getConfig().getCleartextFields());
+                transformer.setSensitiveMarkings(getConfig().getSensitiveMarkings());
+                transformer.setEncrypter(encrypter);
+            }
+            catch (DatawaveEncryptionException e) {
+                throw new RuntimeException("Exception creating encrypter", e);
+            }
         }
         
         return transformer;
     }
-    
+
+    List<X509Certificate> defaultRecipients = new ArrayList<>();
+
+    protected List<X509Certificate> buildRecipientList(Principal principal, List<X509Certificate> defaultRecipients) throws DatawaveEncryptionException {
+        if (defaultRecipients == null) {
+            defaultRecipients = Collections.emptyList();
+        }
+        List<X509Certificate> responseRecipients = new ArrayList<>(defaultRecipients);
+        if (principal instanceof DatawavePrincipal) {
+            // TODO: null checks?
+            DatawavePrincipal datawavePrincipal = (DatawavePrincipal) principal;
+            SubjectIssuerDNPair subjectIssuerDNPair = datawavePrincipal.getUserDN();
+            String subjectIssuerDN = subjectIssuerDNPair.toString();
+            X509Certificate certificate = recipientResolverStrategy.resolveCertificate(subjectIssuerDN);
+            if (certificate == null) {
+                throw new DatawaveEncryptionException("Could not resolve certificate for: " + subjectIssuerDN);
+            } else {
+                responseRecipients.add(certificate);
+            }
+        }
+        return responseRecipients;
+    }
+
     protected void loadQueryParameters(ShardQueryConfiguration config, Query settings) throws QueryException {
         TraceStopwatch stopwatch = config.getTimers().newStartedStopwatch("ShardQueryLogic - Parse query parameters");
         boolean rawDataOnly = false;
@@ -1823,6 +1869,22 @@ public class ShardQueryLogic extends BaseQueryLogic<Entry<Key,Value>> {
         getConfig().setCompressServerSideResults(compressServerSideResults);
     }
     
+    public Set<String> getCleartextFields() {
+        return getConfig().getCleartextFields();
+    }
+    
+    public void setCleartextFields(Set<String> cleartextFields) {
+        getConfig().setCleartextFields(cleartextFields);
+    }
+    
+    public Set<String> getSensitiveMarkings() {
+        return getConfig().getSensitiveMarkings();
+    }
+    
+    public void setSensitiveMarkings(Set<String> sensitiveMarkings) {
+        getConfig().setSensitiveMarkings(sensitiveMarkings);
+    }
+    
     /**
      * Returns a value indicating whether index-only filter functions (e.g., #INCLUDE, #EXCLUDE) should be enabled. If true, the use of such filters can
      * potentially consume a LOT of memory.
@@ -2304,5 +2366,13 @@ public class ShardQueryLogic extends BaseQueryLogic<Entry<Key,Value>> {
     
     public void setWhindexFieldMappings(Map<String,Map<String,String>> whindexFieldMappings) {
         getConfig().setWhindexFieldMappings(whindexFieldMappings);
+    }
+
+    public RecipientResolverStrategy getRecipientResolverStrategy() {
+        return recipientResolverStrategy;
+    }
+
+    public void setRecipientResolverStrategy(RecipientResolverStrategy recipientResolverStrategy) {
+        this.recipientResolverStrategy = recipientResolverStrategy;
     }
 }

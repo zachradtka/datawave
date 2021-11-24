@@ -2,6 +2,7 @@ package datawave.query.transformer;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import datawave.encryption.Encrypter;
 import datawave.marking.MarkingFunctions;
 import datawave.query.DocumentSerialization;
 import datawave.query.attributes.Attribute;
@@ -11,12 +12,14 @@ import datawave.query.attributes.Document;
 import datawave.query.attributes.TimingMetadata;
 import datawave.query.cardinality.CardinalityConfiguration;
 import datawave.query.cardinality.CardinalityRecord;
+import datawave.query.config.ShardQueryConfiguration;
 import datawave.query.function.JexlEvaluation;
 import datawave.query.function.LogTiming;
 import datawave.query.function.deserializer.DocumentDeserializer;
 import datawave.query.iterator.QueryOptions;
 import datawave.query.iterator.profile.QuerySpan;
 import datawave.query.jexl.JexlASTHelper;
+import datawave.security.authorization.RecipientResolverStrategy;
 import datawave.util.StringUtils;
 import datawave.util.time.DateHelper;
 import datawave.webservice.query.Query;
@@ -33,12 +36,16 @@ import datawave.webservice.result.BaseQueryResponse;
 import datawave.webservice.result.EventQueryResponseBase;
 import org.apache.accumulo.core.data.Key;
 import org.apache.accumulo.core.data.Value;
+import org.apache.accumulo.core.security.Authorizations;
 import org.apache.accumulo.core.security.ColumnVisibility;
+import org.apache.accumulo.core.security.VisibilityEvaluator;
+import org.apache.accumulo.core.security.VisibilityParseException;
 import org.apache.hadoop.io.Text;
 import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,7 +88,12 @@ public abstract class DocumentTransformerSupport<I,O> extends EventQueryTransfor
     private long logicCreated = System.currentTimeMillis();
     private Set<String> projectFields = Collections.emptySet();
     private Set<String> blacklistedFields = Collections.emptySet();
-    
+
+    protected boolean encryptionEnabled = false;
+    protected Encrypter encrypter = null;
+    protected Set<String> cleartextFields = Collections.emptySet();
+    protected VisibilityEvaluator sensitiveMarkingsEvaluator = null;
+
     protected List<DocumentTransform> transforms = new ArrayList<>();
     
     /*
@@ -519,7 +531,12 @@ public abstract class DocumentTransformerSupport<I,O> extends EventQueryTransfor
     public CardinalityConfiguration getCardinalityConfiguration() {
         return cardinalityConfiguration;
     }
-    
+
+    public boolean isEncryptionEnabled() {
+        // if we specify cleartext fields, it implies some fields can't be cleartext, thus we must encrypt.
+        return cleartextFields != null && cleartextFields.size() > 0;
+    }
+
     public void setCardinalityConfiguration(CardinalityConfiguration cardinalityConfiguration) {
         this.cardinalityConfiguration = cardinalityConfiguration;
         try {
@@ -539,7 +556,58 @@ public abstract class DocumentTransformerSupport<I,O> extends EventQueryTransfor
     public void setBlacklistedFields(Set<String> blacklistedFields) {
         this.blacklistedFields = blacklistedFields;
     }
-    
+
+    public void setEncryptionEnabled(boolean enabled) {
+        this.encryptionEnabled = true;
+    }
+
+    public void setEncrypter(Encrypter encrypter) {
+        this.encrypter = encrypter;
+    }
+
+    public void setCleartextFields(Set<String> cleartextFields) {
+        this.cleartextFields = cleartextFields;
+    }
+
+    public void setSensitiveMarkings(Set<String> sensitiveMarkings) {
+        Authorizations sensitiveAuths = new Authorizations(sensitiveMarkings.toArray(new String[0]));
+        this.sensitiveMarkingsEvaluator = new VisibilityEvaluator(sensitiveAuths);
+    }
+
+    /** determine whether a field should be encrypted by evaluating whether the field is sensitive or it appears in
+     *  the list of fields that can remain cleartext in the context of sensitive markings. If no sensitive markings
+     *  are configured, assume all markings are sensitive. If no cleartext fields are configured, assume all fields
+     *  must be encrypted.
+     * @param fieldName
+     * @param cv
+     * @return
+     */
+    public boolean shouldEncryptField(String fieldName, ColumnVisibility cv) throws VisibilityParseException {
+        return encryptionEnabled && isSensitive(cv) && shouldEncryptField(fieldName);
+    }
+
+    /** determine whether a field should be encrypted assuming that the document has already been determined to
+     *  be sensitive. If no cleartext fields are set, assume the field must be encrypt.
+     * @param fieldName
+     * @return
+     */
+    public boolean shouldEncryptField(String fieldName) {
+        if (cleartextFields == null || cleartextFields.isEmpty()) return true;
+
+        return !cleartextFields.contains(fieldName);
+    }
+
+    /** evaluate the visibility expression against a known set of markings that are sensitive. If no sensitive
+     *  markings are set, assume everything is sensitive.
+     * @param cv the column visibility to evaluate.
+     * @return
+     * @throws VisibilityParseException
+     */
+    public boolean isSensitive(ColumnVisibility cv) throws VisibilityParseException {
+        if (sensitiveMarkingsEvaluator == null) return true;
+        return sensitiveMarkingsEvaluator.evaluate(cv);
+    }
+
     public void setPrimaryToSecondaryFieldMap(Map<String,List<String>> primaryToSecondaryFieldMap) {
         addTransform(new FieldMappingTransform(primaryToSecondaryFieldMap, reducedResponse));
     }

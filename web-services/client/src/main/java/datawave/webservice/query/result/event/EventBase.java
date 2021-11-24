@@ -43,7 +43,15 @@ public abstract class EventBase<T,F extends FieldBase<F>> implements HasMarkings
     
     @XmlTransient
     public abstract List<F> getFields();
-    
+
+    public abstract void setEncryptedKeys(List<EncryptedKey> encryptedKeys);
+
+    public abstract List<EncryptedKey> getEncryptedKeys();
+
+    public abstract void setEncryptedPayloads(List<EncryptedPayload> encryptedPayloads);
+
+    public abstract List<EncryptedPayload> getEncryptedPayloads();
+
     public Map<String,String> getMarkings() {
         assureMarkings();
         return markings;
@@ -57,5 +65,7 @@ public abstract class EventBase<T,F extends FieldBase<F>> implements HasMarkings
     public void setMarkings(Map<String,String> markings) {
         this.markings = markings;
     }
+
+
     
 }

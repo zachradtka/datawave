@@ -53,5 +53,4 @@ public abstract class ResponseObjectFactory {
     public abstract DescriptionBase getDescription();
     
     public abstract MetadataFieldBase getMetadataField();
-    
 }

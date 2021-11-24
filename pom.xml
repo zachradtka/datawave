@@ -49,6 +49,7 @@
         <version.curator>2.13.0</version.curator>
         <version.deltaspike>1.9.0</version.deltaspike>
         <version.easymock>4.0.2</version.easymock>
+        <version.eelj>2.1.0</version.eelj>
         <version.geoserver>2.14.2</version.geoserver>
         <version.geotools>20.1</version.geotools>
         <version.geowave>1.1.0</version.geowave>
@@ -340,6 +341,11 @@
                 <groupId>gov.nsa.datawave.microservice</groupId>
                 <artifactId>type-utils</artifactId>
                 <version>${version.microservice.type-utils}</version>
+            </dependency>
+            <dependency>
+                <groupId>gov.nsa.dpdrm</groupId>
+                <artifactId>eel-j</artifactId>
+                <version>${version.eelj}</version>
             </dependency>
             <dependency>
                 <groupId>io.astefanutti.metrics.cdi</groupId>

@@ -26,6 +26,11 @@ import datawave.webservice.results.datadictionary.DescriptionBase;
 import datawave.webservice.results.datadictionary.FieldsBase;
 
 public class DefaultResponseObjectFactory extends ResponseObjectFactory {
+
+    public DefaultResponseObjectFactory() {
+        int i = 0;
+    }
+
     @Override
     public EventBase getEvent() {
         return new DefaultEvent();

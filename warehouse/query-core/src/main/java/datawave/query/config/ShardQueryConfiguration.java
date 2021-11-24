@@ -372,6 +372,12 @@ public class ShardQueryConfiguration extends GenericQueryConfiguration implement
     // fields exempt from query model expansion
     private Set<String> noExpansionFields = new HashSet<>();
     
+    // fields that we must not encrypt
+    private Set<String> cleartextFields = new HashSet<>(0);
+    
+    // encrypt fields when these markings are encountered
+    private Set<String> sensitiveMarkings = new HashSet<>();
+    
     /**
      * Default constructor
      */
@@ -554,6 +560,8 @@ public class ShardQueryConfiguration extends GenericQueryConfiguration implement
         this.setWhindexMappingFields(other.getWhindexMappingFields());
         this.setWhindexFieldMappings(other.getWhindexFieldMappings());
         this.setNoExpansionFields(other.getNoExpansionFields());
+        this.setCleartextFields(other.getCleartextFields());
+        this.setSensitiveMarkings(other.getSensitiveMarkings());
     }
     
     /**
@@ -2216,5 +2224,21 @@ public class ShardQueryConfiguration extends GenericQueryConfiguration implement
     
     public void setNoExpansionFields(Set<String> noExpansionFields) {
         this.noExpansionFields = noExpansionFields;
+    }
+    
+    public Set<String> getCleartextFields() {
+        return cleartextFields;
+    }
+    
+    public void setCleartextFields(Set<String> cleartextFields) {
+        this.cleartextFields = cleartextFields;
+    }
+    
+    public Set<String> getSensitiveMarkings() {
+        return sensitiveMarkings;
+    }
+    
+    public void setSensitiveMarkings(Set<String> sensitiveMarkings) {
+        this.sensitiveMarkings = sensitiveMarkings;
     }
 }
