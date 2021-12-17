@@ -477,7 +477,12 @@ public class ShardQueryLogic extends BaseQueryLogic<Entry<Key,Value>> {
     protected MetadataHelper prepareMetadataHelper(Connector connection, String metadataTableName, Set<Authorizations> auths, boolean rawTypes) {
         if (log.isTraceEnabled())
             log.trace("prepareMetadataHelper with " + connection);
-        return metadataHelperFactory.createMetadataHelper(connection, metadataTableName, auths, rawTypes);
+        MetadataHelper helper = metadataHelperFactory.createMetadataHelper(connection, metadataTableName, auths, rawTypes);
+        Set<String> evaluationOnlyFields = config.getEvaluationOnlyFields();
+        if (evaluationOnlyFields != null && !evaluationOnlyFields.isEmpty()) {
+            helper = new ShardQueryMetadataHelper(connection, helper, evaluationOnlyFields);
+        }
+        return helper;
     }
     
     public MetadataHelperFactory getMetadataHelperFactory() {
