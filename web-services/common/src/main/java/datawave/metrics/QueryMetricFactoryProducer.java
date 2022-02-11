@@ -13,7 +13,7 @@ import javax.enterprise.inject.Produces;
 @ApplicationScoped
 public class QueryMetricFactoryProducer {
     @Produces
-    public QueryMetricFactory columnVisibilitySecurityMarking() {
+    public QueryMetricFactory queryMetricFactory() {
         return new QueryMetricFactoryImpl();
     }
 }
