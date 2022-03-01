@@ -343,8 +343,20 @@
                 <version>${version.microservice.query-metric-api}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>*</groupId>
+                        <groupId>gov.nsa.datawave</groupId>
                         <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>gov.nsa.datawave.microservice</groupId>
+                        <artifactId>accumulo-utils</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>gov.nsa.datawave.webservices</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>

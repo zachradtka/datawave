@@ -65,7 +65,9 @@ public class QueryMetricsWriter {
             Message message;
             do {
                 message = consumer.receive(500);
-                if (message != null) {
+                if (message == null) {
+                    log.error("received a null message");
+                } else {
                     try {
                         if (message instanceof ObjectMessage) {
                             ObjectMessage objectMessage = (ObjectMessage) message;
@@ -75,6 +77,8 @@ public class QueryMetricsWriter {
                                 queryMetricHolder = (QueryMetricHolder) o;
                             } else if (o instanceof QueryMetricMessage) {
                                 queryMetricHolder = ((QueryMetricMessage) o).getMetricHolder();
+                            } else {
+                                log.error("message of type " + message.getClass().getCanonicalName() + " not expected");
                             }
                             if (queryMetricHolder != null) {
                                 metricHolderList.add(queryMetricHolder);
@@ -100,12 +104,12 @@ public class QueryMetricsWriter {
         private BaseQueryMetric metric;
         private long created = System.currentTimeMillis();
         private int totalFailures;
-        private int failuresWhenOthersSucceded;
+        private int failuresWhenOthersSucceeded;
         
         public FailureRecord(BaseQueryMetric metric, boolean anySuccess) {
             this.metric = metric;
             this.totalFailures = 1;
-            this.failuresWhenOthersSucceded = anySuccess ? 1 : 0;
+            this.failuresWhenOthersSucceeded = anySuccess ? 1 : 0;
         }
         
         public BaseQueryMetric getMetric() {
@@ -115,7 +119,7 @@ public class QueryMetricsWriter {
         public void incrementFailures(boolean anySuccess) {
             totalFailures++;
             if (anySuccess) {
-                failuresWhenOthersSucceded++;
+                failuresWhenOthersSucceeded++;
             }
         }
         
@@ -123,8 +127,8 @@ public class QueryMetricsWriter {
             return totalFailures;
         }
         
-        public int getFailuresWhenOthersSucceded() {
-            return failuresWhenOthersSucceded;
+        public int getFailuresWhenOthersSucceeded() {
+            return failuresWhenOthersSucceeded;
         }
         
         public long getAge() {
@@ -161,7 +165,7 @@ public class QueryMetricsWriter {
         boolean anySuccess = false;
         while (itr.hasNext()) {
             FailureRecord f = itr.next();
-            if (f.getFailuresWhenOthersSucceded() > 2) {
+            if (f.getFailuresWhenOthersSucceeded() > 2) {
                 log.error("discarding metric: " + f.getMetric());
                 itr.remove();
             } else {
