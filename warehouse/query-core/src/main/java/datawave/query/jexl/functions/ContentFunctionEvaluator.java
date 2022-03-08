@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import datawave.ingest.protobuf.TermWeightPosition;
+import datawave.query.postprocessing.tf.TermOffsetMap;
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.LinkedListMultimap;
@@ -25,12 +26,12 @@ public abstract class ContentFunctionEvaluator {
     protected final Set<String> fields;
     protected final int distance;
     protected final String[] terms;
-    protected final Map<String,TermFrequencyList> termOffsetMap;
+    protected final TermOffsetMap termOffsetMap;
     protected final boolean canProcess;
     protected final int maxScore;
     protected Set<String> eventIds;
     
-    public ContentFunctionEvaluator(Set<String> fields, int distance, float maxScore, Map<String,TermFrequencyList> termOffsetMap, String... terms) {
+    public ContentFunctionEvaluator(Set<String> fields, int distance, float maxScore, TermOffsetMap termOffsetMap, String... terms) {
         this.fields = fields;
         this.distance = distance;
         this.maxScore = TermWeightPosition.positionScoreToTermWeightScore(maxScore);
@@ -56,7 +57,7 @@ public abstract class ContentFunctionEvaluator {
      * @param termOffsetMap
      * @param terms
      */
-    protected boolean isValidArguments(int distance, Map<String,TermFrequencyList> termOffsetMap, String[] terms) {
+    protected boolean isValidArguments(int distance, TermOffsetMap termOffsetMap, String[] terms) {
         if (termOffsetMap == null || (distance < 0) || terms.length < 2) {
             return false;
         }
@@ -107,8 +108,8 @@ public abstract class ContentFunctionEvaluator {
                 
                 return false;
             }
-            
-            TermFrequencyList tfList = termOffsetMap.get(term);
+    
+            TermFrequencyList tfList = termOffsetMap.getTermFrequencyList(term);
             
             if (tfList == null) {
                 if (log.isTraceEnabled()) {
@@ -157,7 +158,7 @@ public abstract class ContentFunctionEvaluator {
             for (String eventId : eventIds) {
                 ListMultimap<String,List<TermWeightPosition>> offsetsByField = LinkedListMultimap.create();
                 for (String term : terms) {
-                    TermFrequencyList tfList = termOffsetMap.get(term);
+                    TermFrequencyList tfList = termOffsetMap.getTermFrequencyList(term);
                     
                     // Invert the map to take all of the offsets for a term within a field
                     // and group the lists together

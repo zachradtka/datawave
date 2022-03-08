@@ -12,6 +12,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import datawave.ingest.protobuf.TermWeightPosition;
+import datawave.query.postprocessing.tf.TermOffsetMap;
 import org.apache.log4j.Logger;
 
 /**
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
 public class ContentUnorderedEvaluator extends ContentFunctionEvaluator {
     private static final Logger log = Logger.getLogger(ContentUnorderedEvaluator.class);
     
-    public ContentUnorderedEvaluator(Set<String> fields, int distance, float maxScore, Map<String,TermFrequencyList> termOffsetMap, String... terms) {
+    public ContentUnorderedEvaluator(Set<String> fields, int distance, float maxScore, TermOffsetMap termOffsetMap, String... terms) {
         super(fields, distance, maxScore, termOffsetMap, terms);
     }
     
@@ -215,6 +216,7 @@ public class ContentUnorderedEvaluator extends ContentFunctionEvaluator {
                 OffsetList o = offsetQueue.remove();
                 
                 if (maxOffset.get().getLowOffset() - o.getMinOffset().getOffset() <= distance) {
+                    // TODO - Mark this as a potential phrase offset, check with Ivan, maybe startOffset = maxOffset.get().getOffset and endOffset = o.getMinOffset.getOffset().
                     return true;
                 }
                 

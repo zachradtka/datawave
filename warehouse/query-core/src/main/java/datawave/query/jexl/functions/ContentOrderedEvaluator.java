@@ -1,6 +1,8 @@
 package datawave.query.jexl.functions;
 
 import datawave.ingest.protobuf.TermWeightPosition;
+import datawave.query.Constants;
+import datawave.query.postprocessing.tf.TermOffsetMap;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public class ContentOrderedEvaluator extends ContentFunctionEvaluator {
     private static final int FORWARD = 1;
     private static final int REVERSE = -1;
     
-    public ContentOrderedEvaluator(Set<String> fields, int distance, float maxScore, Map<String,TermFrequencyList> termOffsetMap, String... terms) {
+    public ContentOrderedEvaluator(Set<String> fields, int distance, float maxScore, TermOffsetMap termOffsetMap, String... terms) {
         super(fields, distance, maxScore, termOffsetMap, terms);
         if (log.isTraceEnabled()) {
             log.trace("ContentOrderedEvaluatorTreeSet constructor");
@@ -233,6 +235,9 @@ public class ContentOrderedEvaluator extends ContentFunctionEvaluator {
         NavigableSet<EvaluateTermPosition> first = offsets.get(0);
         NavigableSet<EvaluateTermPosition> second = offsets.get(secondIndex);
         
+        // The start offset of the phrase if satisfied.
+        int startOffset = first.first().termWeightPosition.getOffset();
+        int endOffset;
         // test that these terms are within distance
         while (first.first().isWithIn(second.first(), distance)) {
             // are there more terms?
@@ -243,6 +248,18 @@ public class ContentOrderedEvaluator extends ContentFunctionEvaluator {
                 second = offsets.get(secondIndex);
             } else {
                 // nope
+                
+                // Establish the end offset of the phrase.
+                endOffset = second.first().termWeightPosition.getOffset();
+                // Record the start and end offset of the identified phrase.
+                if(fields != null && !fields.isEmpty()) {
+                    for (String field : fields) {
+                        // Record the offsets for each field to fetch excerpts later if desired.
+                        termOffsetMap.putPhraseOffset(field, startOffset, endOffset);
+                    }
+                } else {
+                    termOffsetMap.putPhraseOffset(Constants.ANY_FIELD, startOffset, endOffset);
+                }
                 return true;
             }
         }
