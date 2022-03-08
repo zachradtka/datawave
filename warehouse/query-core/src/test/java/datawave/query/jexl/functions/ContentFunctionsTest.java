@@ -168,13 +168,12 @@ public class ContentFunctionsTest {
     private void assertPhraseOffset(String field, int startOffset, int endOffset) {
         Collection<Pair<Integer,Integer>> phraseOffsets = termOffSetMap.getPhraseOffsets(field);
         boolean found = phraseOffsets.stream().anyMatch((pair) -> pair.getValue0().equals(startOffset) && pair.getValue1().equals(endOffset));
-        Assert.assertTrue("Expected phrase offset [" + startOffset + ", " + endOffset + "] for field " + field, found);
+        Assert.assertTrue("Expected phrase offset [" + startOffset + ", " + endOffset + "] for field " + field + " but was " + phraseOffsets, found);
     }
     
     private void assertPhraseOffsetsEmpty() {
         Assert.assertTrue("Expected empty phrase offset map", termOffSetMap.getPhraseOffsets().isEmpty());
     }
-    
     
     @Test
     public void testEvaluation1() {
@@ -212,7 +211,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 252, 253);
+        assertPhraseOffset("CONTENT", 252, 253);
     }
     
     @Test
@@ -233,7 +232,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 251, 252);
+        assertPhraseOffset("CONTENT", 251, 252);
     }
     
     @Test
@@ -254,7 +253,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 252, 252);
+        assertPhraseOffset("CONTENT", 252, 252);
     }
     
     @Test
@@ -275,7 +274,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 252, 252);
+        assertPhraseOffset("CONTENT", 252, 252);
     }
     
     /**
@@ -631,7 +630,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 2, 3);
+        assertPhraseOffset("CONTENT", 2, 3);
     }
     
     @Test
@@ -650,7 +649,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 2, 5);
+        assertPhraseOffset("CONTENT", 2, 5);
     }
     
     @Test
@@ -669,7 +668,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 3, 4);
+        assertPhraseOffset("CONTENT", 3, 4);
     }
     
     @Test
@@ -688,7 +687,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 2, 6);
+        assertPhraseOffset("CONTENT", 2, 6);
     }
     
     @Test
@@ -709,7 +708,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 1, 3);
+        assertPhraseOffset("CONTENT", 1, 3);
     }
     
     @Test
@@ -730,7 +729,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
     
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 1, 4);
+        assertPhraseOffset("CONTENT", 1, 4);
     }
     
     @Test
@@ -751,7 +750,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 39, 41);
+        assertPhraseOffset("CONTENT", 39, 41);
     }
     
     @Test
@@ -945,7 +944,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 1, 2);
+        assertPhraseOffset("CONTENT", 1, 2);
     }
     
     @Test
@@ -962,7 +961,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 4, 5);
+        assertPhraseOffset("CONTENT", 4, 5);
     }
     
     @Test
@@ -1052,7 +1051,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
-        assertPhraseOffset(Constants.ANY_FIELD, 3, 3);
+        assertPhraseOffset("CONTENT", 3, 3);
     }
     
     @Test
@@ -1073,6 +1072,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset("CONTENT", 4, 6);
     }
     
     @Test
@@ -1093,6 +1093,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -1113,6 +1114,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset("CONTENT", 4, 4);
     }
     
     @Test
@@ -1133,6 +1135,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -1153,6 +1156,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset("CONTENT", 1, 1);
     }
     
     @Test
@@ -1173,6 +1177,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -1193,6 +1198,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset("CONTENT", 1, 2);
     }
     
     @Test
@@ -1211,6 +1217,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset("CONTENT", 1, 1);
     }
     
     @Test
@@ -1229,6 +1236,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset("CONTENT", 5, 5);
     }
     
     @Test
@@ -1249,6 +1257,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -1267,6 +1276,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset("CONTENT", 3, 3);
     }
     
     @Test
@@ -1285,6 +1295,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset("CONTENT", 3, 3);
     }
     
     @Test
@@ -1303,6 +1314,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -1350,6 +1362,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset("CONTENT", 10, 12);
     }
     
     /**
@@ -1374,6 +1387,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -1533,6 +1547,7 @@ public class ContentFunctionsTest {
         
         Object o = expr.evaluate(context);
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset("CONTENT", 1, 3);
     }
     
     @Test
@@ -1558,6 +1573,7 @@ public class ContentFunctionsTest {
         
         Object o = expr.evaluate(context);
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -1584,6 +1600,7 @@ public class ContentFunctionsTest {
         
         Object o = expr.evaluate(context);
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -1610,6 +1627,7 @@ public class ContentFunctionsTest {
         
         Object o = expr.evaluate(context);
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -1619,56 +1637,56 @@ public class ContentFunctionsTest {
         TermOffsetMap termOffsetMap = new TermOffsetMap();
         
         multimap.put(genTestZone(), getPosition(19));
-        termOffSetMap.putTermFrequencyList("go", new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList("go", new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(genTestZone(), getPosition(20));
         multimap.put(genTestZone(), getPosition(27));
         multimap.put(genTestZone(), getPosition(29));
-        termOffSetMap.putTermFrequencyList("and", new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList("and", new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(genTestZone(), getPosition(21));
-        termOffSetMap.putTermFrequencyList("tell", new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList("tell", new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(genTestZone(), getPosition(22));
-        termOffSetMap.putTermFrequencyList("your", new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList("your", new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(genTestZone(), getPosition(23));
-        termOffSetMap.putTermFrequencyList("brother", new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList("brother", new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(genTestZone(), getPosition(20));
         multimap.put(genTestZone(), getPosition(24));
-        termOffSetMap.putTermFrequencyList("that", new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList("that", new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(genTestZone(), getPosition(25));
-        termOffSetMap.putTermFrequencyList("dinners", new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList("dinners", new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(genTestZone(), getPosition(26));
-        termOffSetMap.putTermFrequencyList("ready", new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList("ready", new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(genTestZone(), getPosition(28));
-        termOffSetMap.putTermFrequencyList("come", new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList("come", new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(genTestZone(), getPosition(30));
-        termOffSetMap.putTermFrequencyList("wash", new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList("wash", new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(genTestZone(), getPosition(31));
-        termOffSetMap.putTermFrequencyList("his", new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList("his", new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(genTestZone(), getPosition(32));
         multimap.put(genTestZone(), getPosition(42));
         multimap.put(genTestZone(), getPosition(52));
-        termOffSetMap.putTermFrequencyList("hands", new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList("hands", new TermFrequencyList(multimap));
         
         // ///////////////////////////
         // Phrase functions
@@ -1743,23 +1761,23 @@ public class ContentFunctionsTest {
         multimap = TreeMultimap.create();
         multimap.put(zone1, getPosition(1));
         multimap.put(zone1, getPosition(100));
-        termOffSetMap.putTermFrequencyList(terms[0], new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList(terms[0], new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(zone2, getPosition(19));
-        termOffSetMap.putTermFrequencyList(terms[0], new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList(terms[0], new TermFrequencyList(multimap));
         
         // Build term 2 offsets...
         
         multimap = TreeMultimap.create();
         multimap.put(zone1, getPosition(10));
         multimap.put(zone1, getPosition(1000));
-        termOffSetMap.putTermFrequencyList(terms[1], new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList(terms[1], new TermFrequencyList(multimap));
         
         multimap = TreeMultimap.create();
         multimap.put(zone2, getPosition(20));
         multimap.put(zone2, getPosition(27));
-        termOffSetMap.putTermFrequencyList(terms[1], new TermFrequencyList(multimap));
+        termOffsetMap.putTermFrequencyList(terms[1], new TermFrequencyList(multimap));
         
         // The only match, [19, 20], is in ZONE2.
         // Thus, evaluating ZONE1 should return false here (see #1171)...
