@@ -55,7 +55,7 @@ public class ContentUnorderedEvaluator extends ContentFunctionEvaluator {
      * @return true if we found an unordered list within the specified distance for the specified set of offsets.
      */
     @Override
-    public boolean evaluate(List<List<TermWeightPosition>> offsets) {
+    public boolean evaluate(String field, List<List<TermWeightPosition>> offsets) {
         filterOffsets(offsets);
         MultiOffsetMatcher mlIter = new MultiOffsetMatcher(distance, terms, offsets);
         return mlIter.findMatch();

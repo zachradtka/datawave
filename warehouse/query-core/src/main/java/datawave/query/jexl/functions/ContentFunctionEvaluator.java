@@ -67,11 +67,12 @@ public abstract class ContentFunctionEvaluator {
     
     /**
      * Evaluate the function based on the list of offset lists. The lists are expected to be ordered, and there is one offset list per term.
-     * 
-     * @param offsets
+     *
+     * @param field the field where the offsets were found
+     * @param offsets the offset lists
      * @return List of offset matching the query, often just the first match for efficiency
      */
-    protected abstract boolean evaluate(List<List<TermWeightPosition>> offsets);
+    protected abstract boolean evaluate(String field, List<List<TermWeightPosition>> offsets);
     
     /**
      * Validate and initialize this class. This will validate the arguments and setup other members.
@@ -218,7 +219,7 @@ public abstract class ContentFunctionEvaluator {
                     }
                     
                     // evaluate the offsets
-                    if (evaluate(offsets)) {
+                    if (evaluate(field, offsets)) {
                         if (log.isTraceEnabled()) {
                             log.trace(logPrefix + " satisfied the content function");
                         }

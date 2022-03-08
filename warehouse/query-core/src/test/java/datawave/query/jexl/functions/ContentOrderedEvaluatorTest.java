@@ -10,17 +10,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class ContentOrderedEvaluatorTest {
     
     private TermOffsetMap termOffsetMap;
-    private final Set<String> fields = new HashSet<>();
     private final List<List<TermWeightPosition>> offsets = new ArrayList<>();
+    private String field;
     private int distance;
     private String[] terms;
     
@@ -33,7 +31,7 @@ public class ContentOrderedEvaluatorTest {
     
     @After
     public void teardown() {
-        fields.clear();
+        field = null;
         offsets.clear();
         terms = null;
     }
@@ -53,7 +51,7 @@ public class ContentOrderedEvaluatorTest {
         // offsets[0].size() <= offsets[N-1].size() will trigger forward-order traversal,
         // evaluating the document for the phrase "a b c", starting with 'a' at offset 10
         
-        givenFields("CONTENT");
+        givenField("CONTENT");
         givenDistance(1);
         givenOffsets(10, 19);
         givenOffsets(11, 20);
@@ -81,7 +79,7 @@ public class ContentOrderedEvaluatorTest {
         // offsets[0].size() > offsets[N-1].size() will trigger reverse-order traversal,
         // evaluating the document for the phrase "c b a", starting with 'c' at offset 21
         
-        givenFields("BODY");
+        givenField("BODY");
         givenDistance(1);
         givenOffsets(1, 10, 100);
         givenOffsets(2, 20);
@@ -99,7 +97,7 @@ public class ContentOrderedEvaluatorTest {
      */
     @Test
     public void evaluate_alternatingExtremesFORWARDTest() {
-        givenFields("CONTENT", "BODY");
+        givenField("CONTENT");
         givenDistance(1);
         givenOffsets(1, 10, 20);
         givenOffsets(21, 24, 30);
@@ -110,7 +108,6 @@ public class ContentOrderedEvaluatorTest {
     
         assertEvaluate(true);
         assertPhraseOffsetsContain("CONTENT", 20, 22);
-        assertPhraseOffsetsContain("BODY", 20, 22);
     }
     
     /**
@@ -118,7 +115,7 @@ public class ContentOrderedEvaluatorTest {
      */
     @Test
     public void evaluate_alternatingExtremesREVERSETest() {
-        givenFields("CONTENT");
+        givenField("CONTENT");
         givenDistance(1);
         givenOffsets(100, 200, 300, 500, 601);
         givenOffsets(1, 5, 29, 87, 101);
@@ -133,7 +130,7 @@ public class ContentOrderedEvaluatorTest {
     
     @Test
     public void evaluate_notEnoughOffsetsTest() {
-        givenFields("CONTENT");
+        givenField("CONTENT");
         givenDistance(1);
         givenTerms("a", "b", "c");
         
@@ -145,7 +142,7 @@ public class ContentOrderedEvaluatorTest {
     
     @Test
     public void evaluate_pruneAllTest() {
-        givenFields("BODY");
+        givenField("BODY");
         givenDistance(1);
         givenOffsets(1);
         givenOffsets(5);
@@ -160,6 +157,8 @@ public class ContentOrderedEvaluatorTest {
     
     @Test
     public void evaluate_simpleSuccessDistance1Test() {
+        givenField("CONTENT");
+        
         givenDistance(1);
         givenOffsets(1);
         givenOffsets(2);
@@ -169,12 +168,12 @@ public class ContentOrderedEvaluatorTest {
         initEvaluator();
         
         assertEvaluate(true);
-        assertPhraseOffsetsContain(Constants.ANY_FIELD, 1, 3);
+        assertPhraseOffsetsContain("CONTENT", 1, 3);
     }
     
     @Test
     public void evaluate_simpleSuccessDistance3Test() {
-        givenFields("CONTENT");
+        givenField("CONTENT");
         givenDistance(3);
         givenOffsets(1);
         givenOffsets(2);
@@ -189,7 +188,7 @@ public class ContentOrderedEvaluatorTest {
     
     @Test
     public void evaluate_simpleSuccessDistance3FailTest() {
-        givenFields("CONTENT");
+        givenField("CONTENT");
         givenDistance(3);
         givenOffsets(1);
         givenOffsets(5);
@@ -204,7 +203,7 @@ public class ContentOrderedEvaluatorTest {
     
     @Test
     public void evaluate_pruneTopTest() {
-        givenFields("CONTENT");
+        givenField("CONTENT");
         givenDistance(1);
         givenOffsets(1, 10);
         givenOffsets(10, 11);
@@ -219,7 +218,7 @@ public class ContentOrderedEvaluatorTest {
     
     @Test
     public void evaluate_pruneBottomTest() {
-        givenFields("BODY");
+        givenField("BODY");
         givenDistance(1);
         givenOffsets(1, 3, 8);
         givenOffsets(3, 4, 44);
@@ -234,7 +233,7 @@ public class ContentOrderedEvaluatorTest {
     
     @Test
     public void evaluate_pruneTopAndBottomTest() {
-        givenFields("CONTENT");
+        givenField("CONTENT");
         givenDistance(1);
         givenOffsets(3, 4, 5, 6);
         givenOffsets(7, 9, 22);
@@ -249,7 +248,7 @@ public class ContentOrderedEvaluatorTest {
     
     @Test
     public void evaluate_livePruneTest() {
-        givenFields("CONTENT");
+        givenField("CONTENT");
         givenDistance(2);
         givenOffsets(1, 3);
         givenOffsets(2, 4);
@@ -263,8 +262,8 @@ public class ContentOrderedEvaluatorTest {
     }
     
     
-    private void givenFields(String... fields) {
-        this.fields.addAll(Arrays.asList(fields));
+    private void givenField(String field) {
+        this.field = field;
     }
     
     private void givenOffsets(int... offsets) {
@@ -284,11 +283,11 @@ public class ContentOrderedEvaluatorTest {
     }
     
     private void initEvaluator() {
-        evaluator = new WrappedContentOrderedEvaluator(fields, distance, termOffsetMap, terms);
+        evaluator = new WrappedContentOrderedEvaluator(null, distance, termOffsetMap, terms);
     }
     
     private void assertEvaluate(boolean expected) {
-        Assert.assertEquals("Expected evaluate() to return " + expected, expected, evaluator.evaluate(offsets));
+        Assert.assertEquals("Expected evaluate() to return " + expected, expected, evaluator.evaluate(field, offsets));
     }
     
     private void assertPhraseOffsetsContain(String field, int startOffset, int endOffset) {
@@ -307,8 +306,8 @@ public class ContentOrderedEvaluatorTest {
         }
         
         @Override
-        protected boolean evaluate(List<List<TermWeightPosition>> offsets) {
-            return super.evaluate(offsets);
+        protected boolean evaluate(String field, List<List<TermWeightPosition>> offsets) {
+            return super.evaluate(field, offsets);
         }
     }
 }

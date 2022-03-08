@@ -770,6 +770,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -788,6 +789,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -808,6 +810,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -828,6 +831,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -848,6 +852,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -868,6 +873,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -886,6 +892,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -904,6 +911,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -920,6 +928,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -936,6 +945,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset(Constants.ANY_FIELD, 1, 2);
     }
     
     @Test
@@ -952,6 +962,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset(Constants.ANY_FIELD, 4, 5);
     }
     
     @Test
@@ -968,6 +979,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, false));
+        assertPhraseOffsetsEmpty();
     }
     
     @Test
@@ -1040,6 +1052,7 @@ public class ContentFunctionsTest {
         Object o = expr.evaluate(context);
         
         Assert.assertTrue(expect(o, true));
+        assertPhraseOffset(Constants.ANY_FIELD, 3, 3);
     }
     
     @Test
