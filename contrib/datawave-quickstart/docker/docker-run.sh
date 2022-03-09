@@ -65,5 +65,5 @@ PORTS="-p 8443:8443 -p 50070:50070 -p 9995:9995"
 COMMAND="${@:3}"
 
 DOCKER_RUN="docker run $2 --rm ${VOLUMES} ${PORTS} --memory-swappiness=0 ${IMAGE_NAME} ${COMMAND}"
-
+echo ${DOCKER_RUN}
 eval "${DOCKER_RUN}"

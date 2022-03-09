@@ -211,6 +211,9 @@ public class CSVRecordReader extends CSVReaderBase implements EventFixer {
      */
     @Override
     protected UID uidOverride(RawRecordContainer e) {
+        if (this.csvEventId == null || this.csvEventId.isEmpty()) {
+            return null;
+        }
         return DataTypeOverrideHelper.getUid(this.csvEventId, e.getTimeForUID(), uidBuilder);
     }
     

@@ -9,12 +9,12 @@
 
 function help() {
     echo "  $( printGreen "Usage:" )"
-    echo "  ./$( basename ${BASH_SOURCE[0]} ) $( printGreen "<image tag name>" ) [[$( printGreen "--use-existing-binaries,-ueb" )] [$( printGreen "--docker-opts,-do" )] [$( printGreen "--help,-h")]]"
+    echo "  ./$( basename ${BASH_SOURCE[0]} ) $( printGreen "<image tag name>" ) [[$( printGreen "--use-existing-binaries,-ueb" )] [$( printGreen "--docker-opts,-do" )] [$( printGreen "--no-ingest" )] [$( printGreen "--help,-h")]]"
     echo
     echo "  $( printGreen "Examples:" )"
     echo "   ./$( basename ${BASH_SOURCE[0]} ) latest"
     echo "   ./$( basename ${BASH_SOURCE[0]} ) 1.0.0-SNAPSHOT --docker-opts \"--squash --force-rm\""
-    echo "   ./$( basename ${BASH_SOURCE[0]} ) 1.1.0-SNAPSHOT --use-existing-binaries"
+    echo "   ./$( basename ${BASH_SOURCE[0]} ) 1.1.0-SNAPSHOT --use-existing-binaries --no-ingest"
     echo
     echo "  $( printGreen "Notes:" )"
     echo
@@ -71,6 +71,7 @@ function validateArgs() {
    # Optional params
 
    docker_opts=""
+   skip_test_ingest=false
    use_existing_binaries=false
 
    while [ -n "${1}" ]; do
@@ -78,6 +79,9 @@ function validateArgs() {
           --use-existing-binaries | -ueb)
              use_existing_binaries=true
              ;;
+          --no-ingest )
+            skip_test_ingest=true
+            ;;
           --docker-opts | -do)
              docker_opts="${2}"
              shift
@@ -187,11 +191,25 @@ function buildDockerImage() {
 
     info "Building Docker image: ${IMAGE_NAME}"
 
-    docker build ${docker_opts} -f ${THIS_DIR}/Dockerfile -t ${IMAGE_NAME} \
-         --build-arg DATAWAVE_COMMIT_ID=$( git rev-parse --verify HEAD ) \
-         --build-arg DATAWAVE_BRANCH_NAME=$( git rev-parse --abbrev-ref HEAD ) \
-         --build-arg DATAWAVE_JAVA_HOME="${DW_JAVA_HOME_OVERRIDE}" \
-         ${DATAWAVE_SOURCE_DIR} || fatal "Docker image creation for DataWave Quickstart failed"
+    if [[ "${skip_test_ingest}" == true ]] ; then
+        info "Skipping test ingest"
+    fi
+
+    DOCKER_BUILD="docker build ${docker_opts} -f ${THIS_DIR}/Dockerfile -t ${IMAGE_NAME} --build-arg DATAWAVE_COMMIT_ID=$( git rev-parse --verify HEAD ) --build-arg DATAWAVE_BRANCH_NAME=$( git rev-parse --abbrev-ref HEAD ) --build-arg DATAWAVE_JAVA_HOME=${DW_JAVA_HOME_OVERRIDE} --build-arg SKIP_TEST_INGEST=${skip_test_ingest} ${DATAWAVE_SOURCE_DIR}"
+
+    info "Building Docker image with command:  ${DOCKER_BUILD}"
+
+    ${DOCKER_BUILD}
+
+    if [[ $? -ne 0 ]] ; then
+        fatal "Docker image creation for DataWave Quickstart failed"
+    fi
+
+    # docker build ${docker_opts} -f ${THIS_DIR}/Dockerfile -t ${IMAGE_NAME} \
+    #      --build-arg DATAWAVE_COMMIT_ID=$( git rev-parse --verify HEAD ) \
+    #      --build-arg DATAWAVE_BRANCH_NAME=$( git rev-parse --abbrev-ref HEAD ) \
+    #      --build-arg DATAWAVE_JAVA_HOME="${DW_JAVA_HOME_OVERRIDE}" \
+    #      ${DATAWAVE_SOURCE_DIR} || fatal "Docker image creation for DataWave Quickstart failed"
 }
 
 validateArgs "$@"
@@ -201,5 +219,8 @@ prepareBuildContext
 buildDockerImage
 
 cleanBuildContext
+
+info "Docker image successfully built"
+info "start container with command: ./docker-run.sh ${IMAGE_NAME} <-it|-d> <OPTIONAL-COMMAND>"
 
 exit 0
