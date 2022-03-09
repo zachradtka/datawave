@@ -6,7 +6,7 @@ QUICKSTART_DIR="$( dirname "${THIS_DIR}" )"
 source "${QUICKSTART_DIR}/bin/logging.sh"
 
 function usage() {
-    echo "  $( printGreen "Usage:" ) $( basename ${BASH_SOURCE[0]} ) $( printGreen "<your-quickstart-image>" ) $( printGreen "<-it|-d>" ) $( printGreen "<OPTIONAL-COMMAND>" )"
+    echo "  $( printGreen "Usage:" ) $( basename ${BASH_SOURCE[0]} ) $( printGreen "<your-quickstart-image>" ) $( printGreen "<-it|-dt>" ) $( printGreen "<OPTIONAL-COMMAND>" )"
     echo
     echo "  Examples:"
     echo
@@ -28,7 +28,7 @@ function usage() {
 
 [ -z "$2" ] && usage && exit 1
 
-[[ "$2" != "-it" && "$2" != "-d" ]] && echo "Second argument must be -it or -d" && usage && exit 1
+[[ "$2" != "-it" && "$2" != "-dt" ]] && echo "Second argument must be -it or -dt" && usage && exit 1
 
 IMAGE_NAME="$1"
 
